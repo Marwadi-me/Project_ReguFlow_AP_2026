@@ -1,0 +1,129 @@
+erDiagram
+    ENTERPRISES ||--o{ COMPLIANCE_FILINGS : "submits"
+    REGULATORY_AUTHORITIES ||--o{ REGULATIONS : "promulgates"
+    REGULATORY_AUTHORITIES ||--o{ COMPLIANCE_OFFICERS : "employs"
+    REGULATIONS ||--o{ COMPLIANCE_RULES : "defines"
+    REGULATIONS ||--o{ COMPLIANCE_FILINGS : "governs"
+    COMPLIANCE_OFFICERS ||--o{ COMPLIANCE_FILINGS : "reviews"
+    COMPLIANCE_FILINGS ||--|{ FILING_DETAILS : "contains"
+    COMPLIANCE_FILINGS ||--o{ RULE_EVALUATIONS : "undergoes"
+    COMPLIANCE_RULES ||--o{ RULE_EVALUATIONS : "evaluates"
+    COMPLIANCE_FILINGS ||--o{ VIOLATIONS : "triggers"
+    COMPLIANCE_RULES ||--o{ VIOLATIONS : "cited_in"
+    RULE_EVALUATIONS ||--o| VIOLATIONS : "results_in"
+    COMPLIANCE_FILINGS ||--o{ AUDIT_LOGS : "audited_by"
+
+    ENTERPRISES {
+        INTEGER enterprise_id PK
+        TEXT registration_number UK "CIN / Udyam"
+        TEXT company_name
+        TEXT industry_sector
+        TEXT scale_category "MICRO | SMALL | MEDIUM | LARGE"
+        REAL annual_turnover_inr
+        REAL compliance_score "0.0 - 100.0"
+        TIMESTAMP created_at
+    }
+
+    REGULATORY_AUTHORITIES {
+        INTEGER authority_id PK
+        TEXT authority_code UK "e.g. CPCB, SPCB-MH"
+        TEXT authority_name
+        TEXT jurisdiction_level "CENTRAL | STATE | MUNICIPAL"
+        TEXT contact_email
+        TIMESTAMP created_at
+    }
+
+    REGULATIONS {
+        INTEGER regulation_id PK
+        INTEGER authority_id FK
+        TEXT regulation_code UK "e.g. ENV-AIR-2024"
+        TEXT title
+        TEXT description
+        TEXT effective_date
+        TEXT filing_frequency "ANNUAL | QUARTERLY | MONTHLY"
+        INTEGER is_active "1 or 0"
+        TIMESTAMP created_at
+    }
+
+    COMPLIANCE_RULES {
+        INTEGER rule_id PK
+        INTEGER regulation_id FK
+        TEXT rule_code UK "e.g. R-AIR-PM25"
+        TEXT parameter_key
+        TEXT operator "<= | >= | == | != | < | >"
+        REAL threshold_value
+        TEXT severity "LOW | MEDIUM | HIGH | CRITICAL"
+        REAL penalty_inr
+        TEXT description
+        TIMESTAMP created_at
+    }
+
+    COMPLIANCE_OFFICERS {
+        INTEGER officer_id PK
+        INTEGER authority_id FK
+        TEXT employee_code UK "e.g. OFF-8821"
+        TEXT full_name
+        TEXT designation
+        TEXT email UK
+        INTEGER active_cases
+        TIMESTAMP created_at
+    }
+
+    COMPLIANCE_FILINGS {
+        INTEGER filing_id PK
+        INTEGER enterprise_id FK
+        INTEGER regulation_id FK
+        INTEGER reviewing_officer_id FK "nullable"
+        TEXT filing_reference UK "e.g. FIL-2026-00101"
+        TEXT filing_period
+        TEXT status "SUBMITTED | UNDER_REVIEW | APPROVED | REJECTED | FLAGGED"
+        REAL risk_score "0.0 - 100.0"
+        TIMESTAMP submission_date
+        TIMESTAMP review_date
+        TIMESTAMP created_at
+    }
+
+    FILING_DETAILS {
+        INTEGER detail_id PK
+        INTEGER filing_id FK
+        TEXT parameter_key
+        REAL declared_numeric_value
+        TEXT declared_text_value
+        TEXT unit_of_measure
+        INTEGER verified_flag "0 or 1"
+        TIMESTAMP created_at
+    }
+
+    RULE_EVALUATIONS {
+        INTEGER evaluation_id PK
+        INTEGER filing_id FK
+        INTEGER rule_id FK
+        TEXT outcome "PASS | FAIL | WARNING"
+        REAL evaluated_numeric_value
+        REAL threshold_numeric_value
+        REAL delta_value
+        TIMESTAMP evaluated_at
+    }
+
+    VIOLATIONS {
+        INTEGER violation_id PK
+        INTEGER filing_id FK
+        INTEGER rule_id FK
+        INTEGER evaluation_id FK
+        TEXT severity "LOW | MEDIUM | HIGH | CRITICAL"
+        REAL penalty_inr
+        TEXT resolution_status "OPEN | APPEALED | RESOLVED | PENALTY_PAID"
+        TEXT remedial_actions
+        TIMESTAMP created_at
+    }
+
+    AUDIT_LOGS {
+        INTEGER log_id PK
+        INTEGER filing_id FK "nullable"
+        TEXT action
+        TEXT performed_by
+        TEXT previous_state
+        TEXT new_state
+        TEXT state_hash "SHA-256 checksum"
+        TIMESTAMP created_at
+    }

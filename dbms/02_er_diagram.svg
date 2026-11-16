@@ -1,0 +1,229 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1480 1020" width="100%" height="100%" style="background-color: #0f172a; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#38bdf8" />
+    </marker>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.5"/>
+    </filter>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="50" y="42" fill="#f8fafc" font-size="22" font-weight="bold">ReguFlow — Entity Relationship Diagram (BCNF Schema)</text>
+  <text x="50" y="65" fill="#94a3b8" font-size="13">Viksit Bharat 2026 Statutory Compliance Architecture | Dual SQLite &amp; PostgreSQL Compatible</text>
+
+  <!-- Legend -->
+  <g transform="translate(1080, 20)">
+    <rect width="350" height="48" rx="6" fill="#1e293b" stroke="#334155" />
+    <circle cx="20" cy="24" r="6" fill="#38bdf8" />
+    <text x="32" y="28" fill="#e2e8f0" font-size="11">PK: Primary Key</text>
+    <circle cx="130" cy="24" r="6" fill="#fbbf24" />
+    <text x="142" y="28" fill="#e2e8f0" font-size="11">FK: Foreign Key</text>
+    <circle cx="240" cy="24" r="6" fill="#34d399" />
+    <text x="252" y="28" fill="#e2e8f0" font-size="11">UK: Unique Key</text>
+  </g>
+
+  <!-- Connectors -->
+  <!-- ENTERPRISES to COMPLIANCE_FILINGS -->
+  <path d="M 180 300 L 180 380" stroke="#38bdf8" stroke-width="2" fill="none" marker-end="url(#arrow)" />
+  <text x="190" y="340" fill="#94a3b8" font-size="11">1 : N (submits)</text>
+
+  <!-- REGULATORY_AUTHORITIES to REGULATIONS -->
+  <path d="M 620 270 L 620 350" stroke="#38bdf8" stroke-width="2" fill="none" marker-end="url(#arrow)" />
+  <text x="630" y="315" fill="#94a3b8" font-size="11">1 : N (promulgates)</text>
+
+  <!-- REGULATORY_AUTHORITIES to COMPLIANCE_OFFICERS -->
+  <path d="M 760 170 L 880 170" stroke="#38bdf8" stroke-width="2" fill="none" marker-end="url(#arrow)" />
+  <text x="785" y="160" fill="#94a3b8" font-size="11">1 : N (employs)</text>
+
+  <!-- REGULATIONS to COMPLIANCE_RULES -->
+  <path d="M 760 460 L 880 460" stroke="#38bdf8" stroke-width="2" fill="none" marker-end="url(#arrow)" />
+  <text x="780" y="450" fill="#94a3b8" font-size="11">1 : N (defines)</text>
+
+  <!-- REGULATIONS to COMPLIANCE_FILINGS -->
+  <path d="M 480 480 L 350 480" stroke="#38bdf8" stroke-width="2" fill="none" marker-end="url(#arrow)" />
+  <text x="375" y="470" fill="#94a3b8" font-size="11">1 : N (governs)</text>
+
+  <!-- COMPLIANCE_OFFICERS to COMPLIANCE_FILINGS -->
+  <path d="M 900 300 L 900 330 L 340 330 L 340 380" stroke="#fbbf24" stroke-width="2" stroke-dasharray="4,4" fill="none" marker-end="url(#arrow)" />
+  <text x="560" y="325" fill="#94a3b8" font-size="11">1 : N (reviews - optional)</text>
+
+  <!-- COMPLIANCE_FILINGS to FILING_DETAILS -->
+  <path d="M 180 660 L 180 730" stroke="#38bdf8" stroke-width="2" fill="none" marker-end="url(#arrow)" />
+  <text x="190" y="700" fill="#94a3b8" font-size="11">1 : N (contains)</text>
+
+  <!-- COMPLIANCE_FILINGS to RULE_EVALUATIONS -->
+  <path d="M 350 580 L 460 580 L 460 700" stroke="#38bdf8" stroke-width="2" fill="none" marker-end="url(#arrow)" />
+  <text x="400" y="640" fill="#94a3b8" font-size="11">1 : N (undergoes)</text>
+
+  <!-- COMPLIANCE_RULES to RULE_EVALUATIONS -->
+  <path d="M 940 600 L 940 650 L 680 650 L 680 700" stroke="#38bdf8" stroke-width="2" fill="none" marker-end="url(#arrow)" />
+  <text x="750" y="645" fill="#94a3b8" font-size="11">1 : N (evaluates)</text>
+
+  <!-- RULE_EVALUATIONS to VIOLATIONS -->
+  <path d="M 740 810 L 860 810" stroke="#ef4444" stroke-width="2" fill="none" marker-end="url(#arrow)" />
+  <text x="765" y="800" fill="#ef4444" font-size="11">1 : 0..1 (results_in)</text>
+
+  <!-- COMPLIANCE_FILINGS to VIOLATIONS -->
+  <path d="M 350 620 L 880 620 L 880 700" stroke="#ef4444" stroke-width="2" stroke-dasharray="4,4" fill="none" marker-end="url(#arrow)" />
+  <text x="560" y="615" fill="#ef4444" font-size="11">1 : N (triggers)</text>
+
+  <!-- COMPLIANCE_FILINGS to AUDIT_LOGS -->
+  <path d="M 280 660 L 280 680 L 1260 680 L 1260 700" stroke="#38bdf8" stroke-width="2" fill="none" marker-end="url(#arrow)" />
+  <text x="1170" y="675" fill="#94a3b8" font-size="11">1 : N (audited_by)</text>
+
+  <!-- ENTITY 1: ENTERPRISES -->
+  <g transform="translate(40, 90)" filter="url(#shadow)">
+    <rect width="280" height="210" rx="8" fill="#1e293b" stroke="#3b82f6" stroke-width="2"/>
+    <rect width="280" height="32" rx="8" fill="#1e3a8a"/>
+    <text x="14" y="22" fill="#ffffff" font-size="13" font-weight="bold">ENTERPRISES</text>
+    <text x="14" y="52" fill="#38bdf8" font-size="11">PK enterprise_id : INT</text>
+    <text x="14" y="74" fill="#34d399" font-size="11">UK registration_number : TEXT</text>
+    <text x="14" y="96" fill="#cbd5e1" font-size="11">company_name : TEXT</text>
+    <text x="14" y="118" fill="#cbd5e1" font-size="11">industry_sector : TEXT</text>
+    <text x="14" y="140" fill="#cbd5e1" font-size="11">scale_category : ENUM</text>
+    <text x="14" y="162" fill="#cbd5e1" font-size="11">annual_turnover_inr : REAL</text>
+    <text x="14" y="184" fill="#cbd5e1" font-size="11">compliance_score : REAL</text>
+    <text x="14" y="202" fill="#64748b" font-size="10">created_at : TIMESTAMP</text>
+  </g>
+
+  <!-- ENTITY 2: REGULATORY_AUTHORITIES -->
+  <g transform="translate(480, 90)" filter="url(#shadow)">
+    <rect width="280" height="180" rx="8" fill="#1e293b" stroke="#3b82f6" stroke-width="2"/>
+    <rect width="280" height="32" rx="8" fill="#1e3a8a"/>
+    <text x="14" y="22" fill="#ffffff" font-size="13" font-weight="bold">REGULATORY_AUTHORITIES</text>
+    <text x="14" y="52" fill="#38bdf8" font-size="11">PK authority_id : INT</text>
+    <text x="14" y="74" fill="#34d399" font-size="11">UK authority_code : TEXT</text>
+    <text x="14" y="96" fill="#cbd5e1" font-size="11">authority_name : TEXT</text>
+    <text x="14" y="118" fill="#cbd5e1" font-size="11">jurisdiction_level : ENUM</text>
+    <text x="14" y="140" fill="#cbd5e1" font-size="11">contact_email : TEXT</text>
+    <text x="14" y="162" fill="#64748b" font-size="10">created_at : TIMESTAMP</text>
+  </g>
+
+  <!-- ENTITY 3: COMPLIANCE_OFFICERS -->
+  <g transform="translate(880, 90)" filter="url(#shadow)">
+    <rect width="280" height="210" rx="8" fill="#1e293b" stroke="#3b82f6" stroke-width="2"/>
+    <rect width="280" height="32" rx="8" fill="#1e3a8a"/>
+    <text x="14" y="22" fill="#ffffff" font-size="13" font-weight="bold">COMPLIANCE_OFFICERS</text>
+    <text x="14" y="52" fill="#38bdf8" font-size="11">PK officer_id : INT</text>
+    <text x="14" y="74" fill="#fbbf24" font-size="11">FK authority_id : INT</text>
+    <text x="14" y="96" fill="#34d399" font-size="11">UK employee_code : TEXT</text>
+    <text x="14" y="118" fill="#cbd5e1" font-size="11">full_name : TEXT</text>
+    <text x="14" y="140" fill="#cbd5e1" font-size="11">designation : TEXT</text>
+    <text x="14" y="162" fill="#34d399" font-size="11">UK email : TEXT</text>
+    <text x="14" y="184" fill="#cbd5e1" font-size="11">active_cases : INT</text>
+    <text x="14" y="202" fill="#64748b" font-size="10">created_at : TIMESTAMP</text>
+  </g>
+
+  <!-- ENTITY 4: REGULATIONS -->
+  <g transform="translate(480, 350)" filter="url(#shadow)">
+    <rect width="280" height="230" rx="8" fill="#1e293b" stroke="#3b82f6" stroke-width="2"/>
+    <rect width="280" height="32" rx="8" fill="#1e3a8a"/>
+    <text x="14" y="22" fill="#ffffff" font-size="13" font-weight="bold">REGULATIONS</text>
+    <text x="14" y="52" fill="#38bdf8" font-size="11">PK regulation_id : INT</text>
+    <text x="14" y="74" fill="#fbbf24" font-size="11">FK authority_id : INT</text>
+    <text x="14" y="96" fill="#34d399" font-size="11">UK regulation_code : TEXT</text>
+    <text x="14" y="118" fill="#cbd5e1" font-size="11">title : TEXT</text>
+    <text x="14" y="140" fill="#cbd5e1" font-size="11">description : TEXT</text>
+    <text x="14" y="162" fill="#cbd5e1" font-size="11">effective_date : DATE</text>
+    <text x="14" y="184" fill="#cbd5e1" font-size="11">filing_frequency : ENUM</text>
+    <text x="14" y="206" fill="#cbd5e1" font-size="11">is_active : INT (0/1)</text>
+    <text x="14" y="224" fill="#64748b" font-size="10">created_at : TIMESTAMP</text>
+  </g>
+
+  <!-- ENTITY 5: COMPLIANCE_RULES -->
+  <g transform="translate(880, 350)" filter="url(#shadow)">
+    <rect width="280" height="250" rx="8" fill="#1e293b" stroke="#3b82f6" stroke-width="2"/>
+    <rect width="280" height="32" rx="8" fill="#1e3a8a"/>
+    <text x="14" y="22" fill="#ffffff" font-size="13" font-weight="bold">COMPLIANCE_RULES</text>
+    <text x="14" y="52" fill="#38bdf8" font-size="11">PK rule_id : INT</text>
+    <text x="14" y="74" fill="#fbbf24" font-size="11">FK regulation_id : INT</text>
+    <text x="14" y="96" fill="#34d399" font-size="11">UK rule_code : TEXT</text>
+    <text x="14" y="118" fill="#cbd5e1" font-size="11">parameter_key : TEXT</text>
+    <text x="14" y="140" fill="#cbd5e1" font-size="11">operator : ENUM (&lt;=, &gt;=, ==)</text>
+    <text x="14" y="162" fill="#cbd5e1" font-size="11">threshold_value : REAL</text>
+    <text x="14" y="184" fill="#cbd5e1" font-size="11">severity : ENUM</text>
+    <text x="14" y="206" fill="#cbd5e1" font-size="11">penalty_inr : REAL</text>
+    <text x="14" y="228" fill="#cbd5e1" font-size="11">description : TEXT</text>
+    <text x="14" y="244" fill="#64748b" font-size="10">created_at : TIMESTAMP</text>
+  </g>
+
+  <!-- ENTITY 6: COMPLIANCE_FILINGS -->
+  <g transform="translate(40, 380)" filter="url(#shadow)">
+    <rect width="310" height="280" rx="8" fill="#1e293b" stroke="#0284c7" stroke-width="2"/>
+    <rect width="310" height="32" rx="8" fill="#0369a1"/>
+    <text x="14" y="22" fill="#ffffff" font-size="13" font-weight="bold">COMPLIANCE_FILINGS (Central)</text>
+    <text x="14" y="52" fill="#38bdf8" font-size="11">PK filing_id : INT</text>
+    <text x="14" y="74" fill="#fbbf24" font-size="11">FK enterprise_id : INT</text>
+    <text x="14" y="96" fill="#fbbf24" font-size="11">FK regulation_id : INT</text>
+    <text x="14" y="118" fill="#fbbf24" font-size="11">FK reviewing_officer_id : INT (NULL)</text>
+    <text x="14" y="140" fill="#34d399" font-size="11">UK filing_reference : TEXT</text>
+    <text x="14" y="162" fill="#cbd5e1" font-size="11">filing_period : TEXT</text>
+    <text x="14" y="184" fill="#cbd5e1" font-size="11">status : ENUM</text>
+    <text x="14" y="206" fill="#cbd5e1" font-size="11">risk_score : REAL</text>
+    <text x="14" y="228" fill="#cbd5e1" font-size="11">submission_date : TIMESTAMP</text>
+    <text x="14" y="250" fill="#cbd5e1" font-size="11">review_date : TIMESTAMP</text>
+    <text x="14" y="270" fill="#64748b" font-size="10">created_at : TIMESTAMP</text>
+  </g>
+
+  <!-- ENTITY 7: FILING_DETAILS -->
+  <g transform="translate(40, 730)" filter="url(#shadow)">
+    <rect width="280" height="210" rx="8" fill="#1e293b" stroke="#3b82f6" stroke-width="2"/>
+    <rect width="280" height="32" rx="8" fill="#1e3a8a"/>
+    <text x="14" y="22" fill="#ffffff" font-size="13" font-weight="bold">FILING_DETAILS</text>
+    <text x="14" y="52" fill="#38bdf8" font-size="11">PK detail_id : INT</text>
+    <text x="14" y="74" fill="#fbbf24" font-size="11">FK filing_id : INT (CASCADE)</text>
+    <text x="14" y="96" fill="#34d399" font-size="11">UK (filing_id, parameter_key)</text>
+    <text x="14" y="118" fill="#cbd5e1" font-size="11">parameter_key : TEXT</text>
+    <text x="14" y="140" fill="#cbd5e1" font-size="11">declared_numeric_value : REAL</text>
+    <text x="14" y="162" fill="#cbd5e1" font-size="11">declared_text_value : TEXT</text>
+    <text x="14" y="184" fill="#cbd5e1" font-size="11">unit_of_measure : TEXT</text>
+    <text x="14" y="202" fill="#64748b" font-size="10">verified_flag : INT (0/1)</text>
+  </g>
+
+  <!-- ENTITY 8: RULE_EVALUATIONS -->
+  <g transform="translate(460, 700)" filter="url(#shadow)">
+    <rect width="280" height="220" rx="8" fill="#1e293b" stroke="#3b82f6" stroke-width="2"/>
+    <rect width="280" height="32" rx="8" fill="#1e3a8a"/>
+    <text x="14" y="22" fill="#ffffff" font-size="13" font-weight="bold">RULE_EVALUATIONS</text>
+    <text x="14" y="52" fill="#38bdf8" font-size="11">PK evaluation_id : INT</text>
+    <text x="14" y="74" fill="#fbbf24" font-size="11">FK filing_id : INT (CASCADE)</text>
+    <text x="14" y="96" fill="#fbbf24" font-size="11">FK rule_id : INT (RESTRICT)</text>
+    <text x="14" y="118" fill="#cbd5e1" font-size="11">outcome : PASS | FAIL | WARN</text>
+    <text x="14" y="140" fill="#cbd5e1" font-size="11">evaluated_numeric_value : REAL</text>
+    <text x="14" y="162" fill="#cbd5e1" font-size="11">threshold_numeric_value : REAL</text>
+    <text x="14" y="184" fill="#cbd5e1" font-size="11">delta_value : REAL</text>
+    <text x="14" y="206" fill="#64748b" font-size="10">evaluated_at : TIMESTAMP</text>
+  </g>
+
+  <!-- ENTITY 9: VIOLATIONS -->
+  <g transform="translate(860, 700)" filter="url(#shadow)">
+    <rect width="280" height="240" rx="8" fill="#1e293b" stroke="#ef4444" stroke-width="2"/>
+    <rect width="280" height="32" rx="8" fill="#991b1b"/>
+    <text x="14" y="22" fill="#ffffff" font-size="13" font-weight="bold">VIOLATIONS</text>
+    <text x="14" y="52" fill="#38bdf8" font-size="11">PK violation_id : INT</text>
+    <text x="14" y="74" fill="#fbbf24" font-size="11">FK filing_id : INT (CASCADE)</text>
+    <text x="14" y="96" fill="#fbbf24" font-size="11">FK rule_id : INT (RESTRICT)</text>
+    <text x="14" y="118" fill="#fbbf24" font-size="11">FK evaluation_id : INT (CASCADE)</text>
+    <text x="14" y="140" fill="#cbd5e1" font-size="11">severity : ENUM</text>
+    <text x="14" y="162" fill="#cbd5e1" font-size="11">penalty_inr : REAL</text>
+    <text x="14" y="184" fill="#cbd5e1" font-size="11">resolution_status : ENUM</text>
+    <text x="14" y="206" fill="#cbd5e1" font-size="11">remedial_actions : TEXT</text>
+    <text x="14" y="226" fill="#64748b" font-size="10">created_at : TIMESTAMP</text>
+  </g>
+
+  <!-- ENTITY 10: AUDIT_LOGS -->
+  <g transform="translate(1200, 700)" filter="url(#shadow)">
+    <rect width="250" height="220" rx="8" fill="#1e293b" stroke="#3b82f6" stroke-width="2"/>
+    <rect width="250" height="32" rx="8" fill="#1e3a8a"/>
+    <text x="14" y="22" fill="#ffffff" font-size="13" font-weight="bold">AUDIT_LOGS</text>
+    <text x="14" y="52" fill="#38bdf8" font-size="11">PK log_id : INT</text>
+    <text x="14" y="74" fill="#fbbf24" font-size="11">FK filing_id : INT (SET NULL)</text>
+    <text x="14" y="96" fill="#cbd5e1" font-size="11">action : TEXT</text>
+    <text x="14" y="118" fill="#cbd5e1" font-size="11">performed_by : TEXT</text>
+    <text x="14" y="140" fill="#cbd5e1" font-size="11">previous_state : TEXT</text>
+    <text x="14" y="162" fill="#cbd5e1" font-size="11">new_state : TEXT</text>
+    <text x="14" y="184" fill="#34d399" font-size="11">state_hash : SHA-256</text>
+    <text x="14" y="206" fill="#64748b" font-size="10">created_at : TIMESTAMP</text>
+  </g>
+</svg>
